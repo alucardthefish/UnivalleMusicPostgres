@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>¡Bienvenido a Univalle Music!</title>
+		<!-- Bootstrap -->
+		<link type="text/css" href="../Assets/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		
+	</head>
+	<body>		
+		
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>
+					<a class="brand"><img alt="Univalle-Music"/></a>
+					<div class="nav-collapse">
+						<ul class="nav">
+							<li><a href="#">Inicio</a></li>
+							<li><a href="#">Acerca</a></li>
+							<li><a href="#">Contactanos</a></li>
+						</ul>
+						<p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>
+					</div> <!-- .nav-collapse -->
+				</div>
+			</div>
+		</div>
+		
+		<div class="hero-unit">
+			<h1>!Univalle Music!</h1>
+			<p>Crea tu cuenta, sube canciones, escuchalas y compartelas</p>
+			<p>
+				<a class="btn btn-primary btn-large" data-toggle="modal" data-target="#myModal">
+					Registrate ya!
+				</a>
+			</p>
+		</div>
+		
+		<div class="modal hide fade in" id="myModal" style="display: none;">
+			<div class="modal-header">
+				<a class="close" data-dismiss="modal">×</a>
+				<h3>Registro</h3>
+			</div>
+			<div class="modal-body">
+				<form action="" method="post">
+					<fieldset>
+						<label>Nombre:</label>
+						<input type="text" name="nombre" id="nombre" />
+						<label>Apellido:</label>
+						<input type="text" name="apellido" id="apellido" />
+						<label>Email:</label>
+						<input type="text" name="email" id="email" />
+						<label>Nick:</label>
+						<input type="text" name="nick" id="nick" />
+						<label>Password:</label>
+						<input type="password" name="password" id="password" />
+						<br />
+						<br />
+						<button type="submit" class="btn btn-danger">Guardar</button>
+						<button type="reset" class="btn">Limpiar</button>
+					</fieldset>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Close</a>
+				<a href="#" class="btn btn-primary">Save changes</a>
+			</div>
+		</div>
+		
+		<div class="container-fluid">
+			<div class="row-fluid">			
+				<div class="span12">
+					<h1>Subiendo Canciones... </h1>
+					<hr />
+					<div class="row-fluid">
+						<div class="span3">
+							<p>
+								Sube tus canciones y reproducelas desde tu lista de reproduccion. 
+							</p>
+							
+							<form action="../Controlador/CancionUsuarioControlador.php" method="post" enctype="multipart/form-data" target="pagina_target">
+								<fieldset>
+									<label>Titulo:</label>
+									<input type="text" name="titulo" id="titulo" />
+									<label>Artista:</label>
+									<input type="text" name="artista" id="artista" />
+									<label>Album:</label>
+									<input type="text" name="album" id="album" />
+									<label>Genero:</label>
+									<input type="text" name="genero" id="genero" />
+									<label>Seleccionar archivo .mp3:</label>
+									<input type="file" name="file" id="file" />
+									<br />
+									<br />
+									<button type="submit" class="btn btn-danger">Subir</button>
+									<button type="reset" class="btn">Limpiar</button>
+								</fieldset>
+								<iframe id="pagina_target" name="pagina_target" style="display:none"></iframe>
+							</form>
+						</div>
+						<div class="well span9">
+							 
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<footer class="footer" style="background-color:#c2c2c2;">
+			<div class="container-fluid" style="margin:0 auto;">
+				<div class="row-fluid">
+					<div class="span2 offset2">
+						<h4>Company</h4>
+						<ul>
+							<li><a href="">About Us</a></li>
+							<li><a href="">Contact</a></li>
+						</ul>
+					</div>
+					<div class="span2 offset1">
+						<h4>Resource</h4>
+						<ul>
+							<li><a href="">Get help</a></li>
+							<li><a href="">FAQ</a></li>
+							<li><a href="">Support</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		
+		
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script src="../Assets/bootstrap/js/bootstrap.min.js"></script>
+	</body>
+</html>

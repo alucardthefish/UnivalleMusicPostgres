@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JQuery Drag & Drop Cart</title>
+    <script type="text/javascript" src="jquery-1.5.min.js"></script>
+    <script src=”http://code.jquery.com/jquery-1.5.js“></script>
+    <script type="text/javascript" src="jquery-ui-1.8.9.custom.min.js"></script>
+    <style type="text/css">
+        body {
+            font-family: Arial, "Free Sans";
+            margin: 0;
+            padding: 0;
+        }
+        #main {
+            background: #0099cc;
+            margin-top: 0;
+            padding: 2px 0 4px 0;
+            text-align: center;
+        }
+        #main a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+            font-family: Arial;
+        }
+        #main a:hover {
+            text-decoration: underline;
+        }
+        #item_container {
+            width: 500px;
+            margin: 0 auto;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .item {
+            background: #fff;
+            float: left;
+            padding: 5px;
+            margin: 5px;
+            cursor: move;
+            -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.5);
+            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.5);
+            box-shadow: 0 1px 2px rgba(0,0,0,.5);
+            -webkit-border-radius: .5em;
+            -moz-border-radius: .5em;
+            border-radius: .5em;
+            z-index: 5;
+        }
+        .title, .price {
+            display: block;
+            text-align: center;
+            font-size: 10px;
+            letter-spacing: -1px;
+            font-weight: bold;
+            cursor: move;
+        }
+        .title {
+            color: #333;
+        }
+        .title2, .price {
+            display: block;
+            text-align: center;
+            font-size: 10px;
+            letter-spacing: -1px;
+            font-weight: bold;
+            cursor: move;
+        }
+        .title2 {
+            color: #333;
+        }
+        .price {
+            color: #0099cc;
+            margin-top: 5px;
+            -webkit-border-radius: .5em;
+            -moz-border-radius: .5em;
+            border-radius: .5em;
+        }
+        .icart, .icart label {
+            cursor: e-resize;
+        }
+        .divrm {
+            text-align: right;
+        }
+        .remove {
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 20px;
+            position: relative;
+            top: -7px;
+        }
+        .remove:hover {
+            color: #999;
+        }
+        .clear {
+            clear: both;
+        }
+        #cart_container {
+            margin: 0 auto;
+            width: 530px;
+        }
+        #cart_title span {
+            border: 8px solid #666;
+            border-bottom-width: 0;
+            background: #333;
+            display: block;
+            float: left;
+            color: #fff;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 5px 10px;
+            -webkit-border-radius: .5em .5em 0 0;
+            -moz-border-radius: .5em .5em 0 0;
+            border-radius: .5em .5em 0 0;
+        }
+        #cart_toolbar {
+            overflow: hidden;
+            border: 8px solid #666;
+            height: 190px;
+            z-index: -2;
+            width: 600px;
+            -webkit-border-radius: 0 .5em 0 0;
+            -moz-border-radius: 0 .5em 0 0;
+            border-radius: 0 .5em 0 0;
+            background: #ffffff;
+        }
+        #cart_items {
+            height: 190px;
+            width: 600px;
+            position: relative;
+            padding: 0 0 0 2px;
+            z-index: 0;
+            cursor: e-resize;
+            border-width: 0 2px;
+        }
+        .back {
+            background: #e9e9e9;
+        }
+        #navigate {
+            width: 580px;
+            margin: 0 auto;
+            border: 8px solid #666;
+            border-top-width: 0;
+            -webkit-border-radius: 0 0 .5em .5em;
+            -moz-border-radius: 0 0 .5em .5em;
+            border-radius: 0 0 .5em .5em;
+            padding: 10px;
+            font-size: 14px;
+            background: #333;
+            font-weight: bold;
+        }
+        #nav_left {
+            float: left;
+        }
+        #nav_left a {
+            padding: 1px 5px;
+            background: #fff;
+            -webkit-border-radius: .5em;
+            -moz-border-radius: .5em;
+            border-radius: .5em;
+            text-decoration: none;
+            color:#0099cc;
+        }
+        #nav_left a:hover {
+            background: #666;
+            color: #fff;
+        }
+        #nav_right {
+            float: right;
+        }
+        .sptext {
+            background: #ffffff;
+            padding: 2px 6px;
+            margin-left: 8px;            
+            -webkit-border-radius: .5em;
+            -moz-border-radius: .5em;
+            border-radius: .5em;
+            color: #666;
+        }
+        .count {
+            color: #0099cc;
+        }
+        .drop-active {
+            background: #ffff99;
+        }
+        .drop-hover {
+            background: #ffff66;
+        }
+    </style>
+    <script>
+    var total_items = 0;
+    var total_price = 0;
+    var contadorArreglo=0;
+    var arreglo_Titulo= new Array();
+    var arreglo_Artista= new Array();
+    jQuery(document).ready(function() {
+
+        jQuery(".item").draggable({
+            revert: true            
+        });
+        jQuery("#cart_items").draggable({
+            axis: "x"
+        });
+
+        jQuery("#cart_items").droppable({
+            accept: ".item",
+            activeClass: "drop-active",
+            hoverClass: "drop-hover",
+            drop: function(event, ui) {
+                var item = ui.draggable.html();
+                var itemid = ui.draggable.attr("id");
+                var name = ui.draggable.attr("name");
+                var artista = ui.draggable.attr("artista");
+                var cancionRepetida=false;
+                
+        if (contadorArreglo==0)
+		  		{
+		  		arreglo_Titulo[contadorArreglo]=name;
+		  		arreglo_Artista[contadorArreglo]=artista;
+		  		contadorArreglo++; 
+		 
+		  		}
+		  		else{
+             
+               for(i=0; i< contadorArreglo; i++)
+                {
+		  
+                if (arreglo_Titulo[i]==name)
+		    				{
+		    				if (arreglo_Artista[i]==artista)
+								{
+								cancionRepetida=true;
+								}
+		    
+		    				}
+		   
+    
+                }
+                
+                
+               if (cancionRepetida==false)
+		  				{
+		  				arreglo_Titulo[contadorArreglo]=name;
+		  				arreglo_Artista[contadorArreglo]=artista;
+		  				contadorArreglo++; 
+		  				}
+		  				else{ alert("la cancion ya esta");}
+               }
+                if (cancionRepetida==false){
+                var html = '<div class="item icart">';
+                html = html + '<div class="divrm">';
+                html = html + '<a onclick="remove(this)" class="remove '+itemid+'">&times;</a>';
+                html = html + '<div/>'+item+'</div>';
+                jQuery("#cart_items").append(html);
+
+                // update total items
+                total_items++;
+                jQuery("#citem").html(total_items);
+
+                // update total price
+                var price = parseInt(ui.draggable.find(".price").html().replace("$ ", ""));
+                total_price = total_price + price;
+                jQuery("#cprice").html("$ " + total_price);
+						}
+                // expand cart items
+                if (total_items > 4) {
+                    jQuery("#cart_items").animate({width: "+=120"}, 'slow');
+                }
+                
+            }//Termina evento
+        });
+       
+
+        jQuery("#btn_next").click(function() {
+            jQuery("#cart_items").animate({left: "-=100"}, 100);
+            return false;
+        });
+        jQuery("#btn_prev").click(function() {
+            jQuery("#cart_items").animate({left: "+=100"}, 100);
+            return false;
+        });
+        jQuery("#btn_clear").click(function() {
+            jQuery("#cart_items").fadeOut("2000", function() {
+               jQuery(this).html("").fadeIn("fast").css({left: 0});
+            });
+            jQuery("#citem").html("0");
+            jQuery("#cprice").html("$ 0");
+            total_items = 0;
+            total_price = 0;
+        		contadorArreglo=0;
+    			var arreglo_Titulo= new Array();
+    			var arreglo_Artista= new Array();
+            return false;
+        });
+		
+	jQuery("#btn_comprar").click(function() {
+		
+
+/*jQuery.post("carritoControlador.php",{
+				nombre:arreglo_Titulo[0],
+      				apellido:arreglo_Artista[0]}, function(data,status){
+      alert("Data: " + data + "\nStatus: " + status);
+      
+  });*/
+  alert("Factura:"+" \nLa musica a comprar es " + arreglo_Titulo + "\nEn proceso implementar el formulario de compra para la transaccion");
+     
+        });
+    });
+    function remove(el) {
+        jQuery(el).hide();
+        jQuery(el).parent().parent().effect("highlight", {color: "#ff0000"}, 1000);		
+        jQuery(el).parent().parent().fadeOut('1000');
+        setTimeout(function() {
+            jQuery(el).parent().parent().remove();
+            // collapse cart items
+            if (total_items > 3) {
+                jQuery("#cart_items").animate({width: "-=120"}, 'slow');
+            }
+        }, 1100);
+			
+			var pos = arreglo_Titulo.indexOf( jQuery(el).parent().parent().find(".title").html().replace("$ ", "") );
+			var pos1 = arreglo_Artista.indexOf( jQuery(el).parent().parent().find(".title2").html().replace("$ ", "") );		
+			
+						
+			while(pos!=pos1)
+			{	
+			pos = arreglo_Titulo.indexOf( jQuery(el).parent().parent().find(".title").html().replace("$ ", ""),pos);
+			pos1 = arreglo_Artista.indexOf( jQuery(el).parent().parent().find(".title2").html().replace("$ ", ""),pos);
+			
+			}
+			
+			 arreglo_Titulo.splice( pos	, 1 );
+			 arreglo_Artista.splice( pos1	, 1 );
+			 contadorArreglo--;
+			
+				
+			
+        // update total item
+        total_items--;
+        jQuery("#citem").html(total_items);
+
+        // update totl price
+        var price = parseInt(jQuery(el).parent().parent().find(".price").html().replace("$ ", ""));
+        total_price = total_price - price;
+        jQuery("#cprice").html("$ " + total_price);
+    }
+    
+
+    </script>	
+  </head>
+  <body>
+
+      <div id="item_container">
+          <div class="item" id="i1" name="Loba" artista="Shakira">
+              <img src="img/1.jpg"/>
+              <label class="title">Loba</label>
+              <label class="title2">Shakira</label>
+              <label class="title">Album: Shakira</label>
+              <label class="price">$ 15000</label>
+          </div>
+          <div class="item" id="i2" name="somebody that i used" artista="Gotye">
+              <img src="img/2.jpg"/>
+              <label class="title">somebody that i used</label>
+              <label class="title2">Gotye</label>
+              <label class="title">Album: somebody</label>
+              <label class="price">$ 24000</label>
+          </div>
+          <div class="item" id="i3" name="I wanna fuck you" artista="Snoop Dogg">
+              <img src="img/3.jpg"/>
+              <label class="title">I wanna fuck you</label>
+              <label class="title2">Snoop Dogg</label>
+              <label class="title">Album: Snoop Dogg</label>
+              <label class="price">$ 18000</label>
+          </div>
+          <div class="item" id="i4" name="Ella Mintio" artista="Hector Lavoe">
+              <img src="img/4.jpg"/>
+              <label class="title">Ella Mintio</label>
+              <label class="title2">Hector Lavoe</label>
+              <label class="title">Album: Hector Lavoe</label>
+              <label class="price">$ 30000</label>
+          </div>
+          <div class="item" id="i5" name="Somos de la Calle" artista="Daddy Yankee">
+              <img src="img/5.jpg"/>
+              <label class="title">Somos de la Calle</label>
+              <label class="title2">Daddy Yankee</label>
+              <label class="title">Album: Daddy Yankee</label>
+              <label class="price">$ 28000</label>
+          </div>
+          <div class="item" id="i6" name="Malaguena" artista="Vicente Fernandez">
+              <img src="img/6.jpg"/>
+              <label class="title">Malagueña</label>
+              <label class="title2">Vicente Fernandez</label>
+              <label class="title">Album: Vicente Fernandez</label>
+              <label class="price">$ 26000</label>
+          </div>
+          <div class="item" id="i7" name="Viva la Vida" artista="Coldplay">
+              <img src="img/7.jpg"/>
+              <label class="title">Viva la Vida</label>
+              <label class="title2">Coldplay</label>
+              <label class="title">Album: Coldplay</label>
+              <label class="price">$ 35000</label>
+          </div>
+          <div class="item" id="i8" name="Un Chance" artista="Tony Dize">
+              <img src="img/8.jpg"/>
+              <label class="title">Un Chance</label>
+              <label class="title2">Tony Dize</label>
+              <label class="title">Album: Tony Dize</label>
+              <label class="price">$ 60000</label>
+          </div>
+          
+          <div class="clear"></div>
+      </div>
+      <div id="cart_container">
+          <div id="cart_title">
+              <span>Carro de compras</span>
+              <div class="clear"></div>
+          </div>
+          <div id="cart_toolbar">
+              <div id="cart_items" class="back"></div>
+          </div>
+          <div id="navigate">
+              <div id="nav_left">
+                  <a href="" id="btn_prev"><</a>
+                  <a href="" id="btn_next">></a>
+                  <a href="" id="btn_clear">Eliminar Productos</a>
+		  				<a href="" id="btn_comprar">Comprar</a>
+              </div>
+              <div id="nav_right">
+                  <span class="sptext">
+                      <label>Productos </label><label class="count" id="citem">0</label>
+                  </span>
+                  <span class="sptext">
+                      <label>Precio total </label><label class="count" id="cprice">$ 0</label>
+                  </span>
+              </div>
+              <div class="clear"></div>
+          </div>
+      </div>
+  </body>
+</html>
+
+
+
+
+

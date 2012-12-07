@@ -62,7 +62,7 @@ echo "antes de verificar errores del archivo";
 //	echo "<script>alert('Acaba de crear la primer parte del string con html para la tabla');</script>";
 //	echo "<script>alert('".$tabla."');</script>";
 	
-	while($row = mysql_fetch_array($querymostrar))
+	while($row = pg_fetch_array($querymostrar))
     { 
 		$tabla = $tabla."<tr><td>".$row['titulo']."</td><td>".$row['artista']."</td><td>".$row['album']."</td><td>".$row['genero']."</td></tr>";
 	}

@@ -19,7 +19,7 @@ $genero="";
 	
 	$datosdiv = "";
 	
-	while($row = mysql_fetch_array($querymostrar))
+	while($row = pg_fetch_array($querymostrar))
 	{ 
 		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']."</h4><hr /><div class=\"row-fluid\"><div class=\"span4\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span4\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span4\"><strong>Genero: </strong> ".$row['genero']."</div></div></div></div>";
 	}
@@ -37,7 +37,7 @@ $genero="";
 	
 	$datosdiv = "";
 	
-	while($row = mysql_fetch_array($querymostrar))
+	while($row = pg_fetch_array($querymostrar))
 	{
 		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\">";
 		if($row['megusta'] == false)
@@ -65,7 +65,7 @@ $genero="";
 	
 	$datosdiv = "";
 	
-	while($row = mysql_fetch_array($querymostrar))
+	while($row = pg_fetch_array($querymostrar))
 	{
 		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\">";
 
@@ -94,7 +94,7 @@ $genero="";
 	
 		$datosdiv = "";
 	
-		while($row = mysql_fetch_array($querymostrar))
+		while($row = pg_fetch_array($querymostrar))
 		{
 			$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\">";
 			if($row['megusta'] == false)
@@ -133,7 +133,7 @@ $genero="";
 	
 	$datosdiv = "";
 	
-	while($row = mysql_fetch_array($querymostrar))
+	while($row = pg_fetch_array($querymostrar))
 	{
 		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\">";
 		if($row['megusta'] == false)
@@ -174,7 +174,7 @@ $genero="";
 
 	$datosdiv = "";
 	
-	while($row = mysql_fetch_array($querymostrar))
+	while($row = pg_fetch_array($querymostrar))
 	{
 		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\">";
 		if($row['megusta'] == false)
@@ -214,7 +214,7 @@ $genero="";
 
 	$datosdiv = "";
 	
-	while($row = mysql_fetch_array($querymostrar))
+	while($row = pg_fetch_array($querymostrar))
 	{
 		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\">";
 		if($row['megusta'] == false)
@@ -241,7 +241,7 @@ $genero="";
 	$querymostrar = $modeloArtista->mostrarCancionesArtista($nick, $artista);
 	
 	$tabla = "<table class=\"table table-bordered\"><thead><tr><th>Titulo</th><th>Artista</th><th>Album</th><th>Genero</th></tr></thead><tbody>";
-	while($row = mysql_fetch_array($querymostrar))
+	while($row = pg_fetch_array($querymostrar))
 	{ 
 		$tabla = $tabla."<tr><td>".$row['titulo']."</td><td>".$row['artista']."</td><td>".$row['album']."</td><td>".$row['genero']."</td></tr>";
 	}
@@ -258,7 +258,7 @@ $genero="";
 	$querymostrar = $modeloAlbum->mostrarCancionesAlbum($nick, $album);
 	
 	$tabla = "<table class=\"table table-bordered\"><thead><tr><th>Titulo</th><th>Artista</th><th>Album</th><th>Genero</th></tr></thead><tbody>";
-	while($row = mysql_fetch_array($querymostrar))
+	while($row = pg_fetch_array($querymostrar))
     { 
 		$tabla = $tabla."<tr><td>".$row['titulo']."</td><td>".$row['artista']."</td><td>".$row['album']."</td><td>".$row['genero']."</td></tr>";
 	}
@@ -275,7 +275,7 @@ $genero="";
 	$querymostrar = $modeloGenero->mostrarCancionesGenero($nick, $genero);
 	
 	$tabla = "<table class=\"table table-bordered\"><thead><tr><th>Titulo</th><th>Artista</th><th>Album</th><th>Genero</th></tr></thead><tbody>";
-	while($row = mysql_fetch_array($querymostrar))
+	while($row = pg_fetch_array($querymostrar))
     { 
 		$tabla = $tabla."<tr><td>".$row['titulo']."</td><td>".$row['artista']."</td><td>".$row['album']."</td><td>".$row['genero']."</td></tr>";
 	}

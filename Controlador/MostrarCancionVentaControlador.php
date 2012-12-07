@@ -1,7 +1,7 @@
 <?php
 include_once("../Modelo/CancionVentaModelo.php");
 $opc = $_POST["opcion"];
-$nick = "admin";
+$nick = "Admin";
 $titulo="";
 $artista="";
 $album="";

@@ -1,7 +1,7 @@
 <?php
  
 echo "antes de verificar errores del archivo";
-  $nick = "sergionick"; //en el futuro se asignara a esta variable desde la sesion que se registre
+  $nick = "Admin"; //en el futuro se asignara a esta variable desde la sesion que se registre
   $titulo= $_POST["titulo"];
   $artista= $_POST["artista"];
   $album= $_POST["album"];
@@ -29,15 +29,15 @@ echo "antes de verificar errores del archivo";
     //echo "<h2>Tamaño del archivo: " . ($_FILES["file"]["size"] / 1024) . " Kb</h2><br />";
     //echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br />";
 
-    if (file_exists("../Usuarios/sergionick/" . $_FILES["file"]["name"]))
+    if (file_exists("../Usuarios/Admin/" . $_FILES["file"]["name"]))
     {
       echo $_FILES["file"]["name"] . " already exists. ";
     
     }
     else
     {
-      move_uploaded_file($_FILES["file"]["tmp_name"], "../Usuarios/sergionick/" . $_FILES["file"]["name"]);
-	  move_uploaded_file($_FILES["fileImage"]["tmp_name"], "../Usuarios/sergionick/" . $_FILES["file"]["name"]);
+      move_uploaded_file($_FILES["file"]["tmp_name"], "../Usuarios/Admin/" . $_FILES["file"]["name"]);
+	  move_uploaded_file($_FILES["fileImage"]["tmp_name"], "../Usuarios/Admin/" . $_FILES["fileImage"]["name"]);
       //echo "Stored in: " . "../Usuarios/sergionick/" . $_FILES["file"]["name"];
       //echo "<h3>Almacenado en el espacio correspondiente al usuario con nick de prueba: " . "../Usuarios/nickprueba/" . $_FILES["file"]["name"];
 	  //echo "antes";

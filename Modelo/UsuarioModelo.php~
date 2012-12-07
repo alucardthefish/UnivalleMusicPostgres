@@ -19,7 +19,7 @@ include('../Config/conexion.php');
     {
       conectar();
       $consulta="INSERT INTO usuario (email, nombre, apellido, password) VALUES ('$this->email','$this->nombre','$this->apellido','$this->password')";
-      mysql_query($consulta) or die(mysql_error());
+      pg_query($consulta) or die(pg_last_error());
       desconectar();
     }
 	

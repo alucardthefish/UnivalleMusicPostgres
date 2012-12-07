@@ -7,7 +7,7 @@ include('../Config/conexion.php');
     var $artista;
     var $album;
     var $genero;
-	var $precio;
+    var $precio;
     var $ubicacion;
 	
 	function CancionVentaModelo()
@@ -17,81 +17,46 @@ include('../Config/conexion.php');
       $this->artista="";
       $this->album="";
       $this->genero="";
-	  $this->precio="";
+      $this->precio="";
       $this->ubicacion="";
     }
 
-/*    
-    function CancionUsuarioModelo($nick, $titulo, $artista, $album, $genero, $ubicacion)
-    {
-      $this->nick=$nick;
-      $this->titulo=$titulo;
-      $this->artista=$artista;
-      $this->album=$album;
-      $this->genero=$genero;
-      $this->ubicacion=$ubicacion;
-    }
-	*/
 	
-	function insertarCancion($nick, $titulo, $artista, $album, $genero, $foto,$precio)
+	function insertarCancion($nick, $titulo, $artista, $album, $genero, $foto,$precio,$ubicacion)
     {
       conectar();
-      $consulta="INSERT INTO cancionesenventa (nick, titulo, artista, album, genero,foto, precio) VALUES ('$nick','$titulo','$artista','$album','$genero','$foto', '$precio')";
+      $consulta="INSERT INTO cancionesenventa (nick, titulo, artista, album, genero,foto, precio, ubicacion_cancion) VALUES ('$nick','$titulo','$artista','$album','$genero','$foto', '$precio','$ubicacion')";
       pg_query($consulta) or die(pg_last_error());
       desconectar();
     }
 
-
+    function setRecomendadoTrue($idcancion)
+	{
+		conectar();
+		$asignarquery = "UPDATE cancionesenventa SET recomendado = true WHERE id_cancion_venta = '$idcancion'";
+		pg_query($consulta) or die(pg_last_error());
+		desconectar();
+	}
+	
+	function setRecomendadoFalse($idcancion)
+	{
+		conectar();
+		$asignarquery = "UPDATE cancionesenventa SET recomendado = false WHERE id_cancion_venta = '$idcancion'";
+		pg_query($consulta) or die(pg_last_error());
+		desconectar();
+	}
     
     function mostrarCanciones($nick)
     {
       conectar();
-      $consulta="SELECT titulo, artista, album, genero,precio FROM cancionesenventa WHERE nick = '$nick'";
+      $consulta="SELECT * FROM cancionesenventa WHERE nick = '$nick'";
       $datos = pg_query($consulta) or die(pg_last_error());
       desconectar();
       
 	  return $datos;      
     }
     
-    function mostrarCancionesTitulo($nick, $titulo)
-    {
-      conectar();
-      $consulta="SELECT titulo, artista, album, genero,precio FROM cancionesenventa WHERE nick = '$nick' and titulo like '$titulo%'";
-      $datos = pg_query($consulta) or die(pg_last_error());
-      desconectar();
-      
-	  return $datos;      
-    }
     
-    function mostrarCancionesArtista($nick, $artista)
-    {
-      conectar();
-      $consulta="SELECT titulo, artista, album, genero, precio FROM cancionesenventa WHERE nick = '$nick' and artista like '$artista%'";
-      $datos = pg_query($consulta) or die(pg_last_error());
-      desconectar();
-      
-	  return $datos;      
-    }
-    
-    function mostrarCancionesAlbum($nick, $album)
-    {
-      conectar();
-      $consulta="SELECT titulo, artista, album, genero, precio FROM cancionesenventa WHERE nick = '$nick' and album like '$album%'";
-      $datos = pg_query($consulta) or die(pg_last_error());
-      desconectar();
-      
-	  return $datos;      
-    }
-    
-    function mostrarCancionesGenero($nick, $genero)
-    {
-      conectar();
-      $consulta="SELECT titulo, artista, album, genero, precio FROM cancionesenventa WHERE nick = '$nick' and genero like '$genero%'";
-      $datos = pg_query($consulta) or die(pg_last_error());
-      desconectar();
-      
-	  return $datos;      
-    }
     
   }
 ?>

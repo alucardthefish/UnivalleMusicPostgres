@@ -1,7 +1,7 @@
 <?php
  
 echo "antes de verificar errores del archivo";
-  $nick = "admin"; //en el futuro se asignara a esta variable desde la sesion que se registre
+  $nick = "sergionick"; //en el futuro se asignara a esta variable desde la sesion que se registre
   $titulo= $_POST["titulo"];
   $artista= $_POST["artista"];
   $album= $_POST["album"];
@@ -29,15 +29,15 @@ echo "antes de verificar errores del archivo";
     //echo "<h2>Tamaño del archivo: " . ($_FILES["file"]["size"] / 1024) . " Kb</h2><br />";
     //echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br />";
 
-    if (file_exists("../Usuarios/admin/" . $_FILES["file"]["name"]))
+    if (file_exists("../Usuarios/sergionick/" . $_FILES["file"]["name"]))
     {
       echo $_FILES["file"]["name"] . " already exists. ";
     
     }
     else
     {
-      move_uploaded_file($_FILES["file"]["tmp_name"], "../Usuarios/admin/" . $_FILES["file"]["name"]);
-	  move_uploaded_file($_FILES["fileImage"]["tmp_name"], "../Usuarios/admin/" . $_FILES["fileImage"]["name"]);
+      move_uploaded_file($_FILES["file"]["tmp_name"], "../Usuarios/sergionick/" . $_FILES["file"]["name"]);
+	  move_uploaded_file($_FILES["fileImage"]["tmp_name"], "../Usuarios/sergionick/" . $_FILES["file"]["name"]);
       //echo "Stored in: " . "../Usuarios/sergionick/" . $_FILES["file"]["name"];
       //echo "<h3>Almacenado en el espacio correspondiente al usuario con nick de prueba: " . "../Usuarios/nickprueba/" . $_FILES["file"]["name"];
 	  //echo "antes";
@@ -46,12 +46,12 @@ echo "antes de verificar errores del archivo";
 	  
       //Aqui va originalmente la creacion del objeto $controller = new CancionUsuarioModelo($nick, $titulo, $artista, $album, $genero, $ubicacion);
 	  $controller = new CancionVentaModelo();
-	  //$controllerGenero = new CancionVentaModelo();
+	
       echo "se creo el objeto cancionventamodelo";
       //echo "<h2>Despues</h2>";
-      $controller->insertarCancion($nick, $titulo, $artista, $album, $genero, $foto,$precio);
+      $controller->insertarCancion($nick, $titulo, $artista, $album, $genero, $foto,$precio,$ubicacion);
 
-	  //$controllerGenero->mostrarCancionesGenero($nick, $genero);
+	
       echo "insertado satisfactoriamente en la base de datos";
       
       echo "<script languaje='Javascript'>parent.document.getElementById('resultado').innerHTML = '".$mensaje."';
@@ -60,15 +60,15 @@ echo "antes de verificar errores del archivo";
                                 parent.document.getElementById('file').value=''; </script>";
 
 	$querymostrar = $controller->mostrarCanciones($nick);
-	//$querymostrarGenero = $controllercontrollerGenero->mostrarCancionesGenero($nick, $genero);
+
 //	echo "<script>alert('Despues de recibir los datos de la tabla canciones_usuario');</script>";
 	
 	//espacio para empezar a crear la tabla
-	$tabla = "<table class=\"table table-bordered\"><thead><tr><th>Titulo</th><th>Artista</th><th>Album</th><th>Genero</th><th>Precio</th></tr></thead><tbody>";
+	$tabla = "<table class=\"table table-bordered\"><thead><tr><th>Titulo</th><th>Artista</th><th>Album</th><th>Genero</th></tr></thead><tbody>";
 //	echo "<script>alert('Acaba de crear la primer parte del string con html para la tabla');</script>";
 //	echo "<script>alert('".$tabla."');</script>";
 	
-	while($row = mysql_fetch_array($querymostrar))
+	while($row = pg_fetch_array($querymostrar))
     { 
 		$tabla = $tabla."<tr><td>".$row['titulo']."</td><td>".$row['artista']."</td><td>".$row['album']."</td><td>".$row['genero']."</td><td>".$row['precio']."</td></tr>";
 	}
@@ -78,7 +78,7 @@ echo "antes de verificar errores del archivo";
 	$tabla = $tabla."</tbody></table>";
 //		echo "<script>alert('Se ha escrito todo el html en el string tabla');</script>";
 //		echo "<script>alert('".$tabla."');</script>";
-	
+
 	echo "<script>parent.document.getElementById('tablademuestra').innerHTML = '".$tabla."';</script>";
 	
 

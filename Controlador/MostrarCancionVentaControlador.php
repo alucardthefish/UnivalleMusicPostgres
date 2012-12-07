@@ -1,12 +1,12 @@
 <?php
 include_once("../Modelo/CancionVentaModelo.php");
 $opc = $_POST["opcion"];
-$nick = "sergionick";
+$nick = "admin";
 $titulo="";
 $artista="";
 $album="";
 $genero="";
-$precio="";  
+  
   switch($opc)
   {
 	case "mostrar":
@@ -15,83 +15,85 @@ $precio="";
 	
 	$querymostrar = $modelo->mostrarCanciones($nick);
 	
-	$tabla = "<table class=\"table table-bordered\"><thead><tr><th>Titulo</th><th>Artista</th><th>Album</th><th>Genero</th><th>Precio</th></tr></thead><tbody>";
-	while($row = mysql_fetch_array($querymostrar))
-    { 
-		$tabla = $tabla."<tr><td>".$row['titulo']."</td><td>".$row['artista']."</td><td>".$row['album']."</td><td>".$row['genero']."</td><td>".$row['precio']."</td></tr>";
-	}
-	$tabla = $tabla."</tbody></table>";
+	$datosdiv = "";
 	
-	echo $tabla;
+	while($row = pg_fetch_array($querymostrar))
+	{ 
+		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']." /Precio: ".$row['precio']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\">";
+		if ($row['recomendado']==f){
+		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"javascript:addToListplayer(".$row['id_cancion_venta'].")\" name=\"option1\" value=\"Milk\"><br></div></div></div></div>";
+		}
+		else{
+		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"javascript:removeFromListplayer(".$row['id_cancion_venta'].")\" name=\"option1\" value=\"Milk\" checked><br></div></div></div></div>";
+		}
+	}
+	
+	
+	echo $datosdiv;
 	
 	break;
 	
-	case "titulo":
+	case "addlike":
+
+	$modeloLike = new CancionVentaModelo();
+	$modeloLike->setRecomendadoTrue($_POST['idcancion']); //Se modifica el campo megusta a true
 	
-	$modeloTitulo = new CancionVentaModelo();
 	
-	$querymostrar = $modeloTitulo->mostrarCancionesTitulo($nick, $titulo);
+	$querymostrar = $modeloLike->mostrarCanciones($nick);
 	
-	$tabla = "<table class=\"table table-bordered\"><thead><tr><th>Titulo</th><th>Artista</th><th>Album</th><th>Genero</th><th>Precio</th></tr></thead><tbody>";
-	while($row = mysql_fetch_array($querymostrar))
-    { 
-		$tabla = $tabla."<tr><td>".$row['titulo']."</td><td>".$row['artista']."</td><td>".$row['album']."</td><td>".$row['genero']."</td><td>".$row['precio']."</td></tr>";
+	//original el de abajo borrando la condicion if de arriba
+	//$querymostrar = $modeloLike->mostrarCanciones($nick); //se devuelve todos los registros para actualizar con ajax
+	
+	$datosdiv = "";
+	
+	while($row = pg_fetch_array($querymostrar))
+	{
+		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']." /Precio: ".$row['precio']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\">";
+		
+		if ($row['recomendado']==f){
+		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"javascript:addToListplayer(".$row['id_cancion_venta'].")\" name=\"option1\" value=\"Milk\" ><br></div></div></div></div>";
+		}
+		else{
+		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"javascript:removeFromListplayer(".$row['id_cancion_venta'].")\" name=\"option1\" value=\"Milk\" checked><br></div></div></div></div>";
+		}
 	}
-	$tabla = $tabla."</tbody></table>";
 	
-	echo $tabla;
+	
+	echo $datosdiv;
+	
 	
 	break;
 	
-	case "artista":
+		case "removelike":
+
+	$modeloLike = new CancionVentaModelo();
+	$modeloLike->setRecomendadoFalse($_POST['idcancion']); //Se modifica el campo megusta a true
 	
-	$modeloArtista = new CancionVentaModelo();
 	
-	$querymostrar = $modeloArtista->mostrarCancionesArtista($nick, $artista);
+	$querymostrar = $modeloLike->mostrarCanciones($nick);
 	
-	$tabla = "<table class=\"table table-bordered\"><thead><tr><th>Titulo</th><th>Artista</th><th>Album</th><th>Genero</th><th>Precio</th></tr></thead><tbody>";
-	while($row = mysql_fetch_array($querymostrar))
-    { 
-		$tabla = $tabla."<tr><td>".$row['titulo']."</td><td>".$row['artista']."</td><td>".$row['album']."</td><td>".$row['genero']."</td><td>".$row['precio']."</td></tr>";
+	//original el de abajo borrando la condicion if de arriba
+	//$querymostrar = $modeloLike->mostrarCanciones($nick); //se devuelve todos los registros para actualizar con ajax
+	
+	$datosdiv = "";
+	
+	while($row = pg_fetch_array($querymostrar))
+	{
+		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']." /Precio: ".$row['precio']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\">";
+		
+		if ($row['recomendado']==f){
+		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"javascript:addToListplayer(".$row['id_cancion_venta'].")\" name=\"option1\" value=\"Milk\"  ><br></div></div></div></div>";
+		}
+		else{
+		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"javascript:removeFromListplayer(".$row['id_cancion_venta'].")\" name=\"option1\" value=\"Milk\" checked><br></div></div></div></div>";
+		}
 	}
-	$tabla = $tabla."</tbody></table>";
 	
-	echo $tabla;
+	
+	echo $datosdiv;
 	
 	break;
 	
-	case "album":
-	
-	$modeloAlbum = new CancionVentaModelo();
-	
-	$querymostrar = $modeloAlbum->mostrarCancionesAlbum($nick, $album);
-	
-	$tabla = "<table class=\"table table-bordered\"><thead><tr><th>Titulo</th><th>Artista</th><th>Album</th><th>Genero</th><th>Precio</th></tr></thead><tbody>";
-	while($row = mysql_fetch_array($querymostrar))
-    { 
-		$tabla = $tabla."<tr><td>".$row['titulo']."</td><td>".$row['artista']."</td><td>".$row['album']."</td><td>".$row['genero']."</td><td>".$row['precio']."</td></tr>";
-	}
-	$tabla = $tabla."</tbody></table>";
-	
-	echo $tabla;
-	
-	break;
-	
-	case "genero":
-	
-	$modeloGenero = new CancionVentaModelo();
-	
-	$querymostrar = $modeloGenero->mostrarCancionesGenero($nick, $genero);
-	
-	$tabla = "<table class=\"table table-bordered\"><thead><tr><th>Titulo</th><th>Artista</th><th>Album</th><th>Genero</th><th>Precio</th></tr></thead><tbody>";
-	while($row = mysql_fetch_array($querymostrar))
-    { 
-		$tabla = $tabla."<tr><td>".$row['titulo']."</td><td>".$row['artista']."</td><td>".$row['album']."</td><td>".$row['genero']."</td><td>".$row['precio']."</td></tr>";
-	}
-	$tabla = $tabla."</tbody></table>";
-	
-	echo $tabla;
-	
-	break;
+
   }
 ?>

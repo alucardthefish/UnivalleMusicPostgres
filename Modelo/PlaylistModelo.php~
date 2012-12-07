@@ -15,7 +15,7 @@ include('../Config/conexion.php');
     {
       conectar();
 	  $consulta="SELECT ubicacion, titulo FROM canciones_usuario WHERE nick = '$nick' and megusta = true";
-      $datos = pg_query($consulta) or die(pg_last_error());
+      $datos = pg_query($consulta) or die(mysql_error());
       desconectar();
       return $datos;      
     }

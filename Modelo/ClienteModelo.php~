@@ -15,7 +15,7 @@ include('UsuarioModelo.php');
     {
       conectar();
       $consulta="INSERT INTO cliente (nick, email) VALUES ('$this->nick','$this->email')";
-      mysql_query($consulta) or die(mysql_error());
+      pg_query($consulta) or die(pg_last_error());
       desconectar();
     }
 	
@@ -24,9 +24,9 @@ include('UsuarioModelo.php');
 		$estaregistrado = false;
 		conectar();
 		$consult = "SELECT * FROM cliente WHERE nick = '$nick'";
-		$resultado = mysql_query($consult) or die (mysql_error());
+		$resultado = pg_query($consult) or die (pg_last_error());
 		desconectar();
-		if(mysql_num_rows($resultado) != 0)
+		if(pg_num_rows($resultado) != 0)
 		{
 			$estaregistrado = true;
 		}
@@ -38,11 +38,11 @@ include('UsuarioModelo.php');
 		$coinciden=false;
 		conectar();
 		$consult = "SELECT password FROM usuario NATURAL JOIN cliente WHERE cliente.nick = '$nick';";
-		$result= mysql_query($consult) or die (mysql_error());
+		$result= pg_query($consult) or die (pg_last_error());
 		desconectar();
 //		$row = mysql_fetch_array($result);
 //		$password = row["password"];
-		$password = mysql_result($result,0);
+		$password = pg_fetch_result($result,0,'password');
 		
 		if($pass == $password)
 		{

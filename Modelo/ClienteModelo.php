@@ -26,7 +26,7 @@ include('UsuarioModelo.php');
 		$consult = "SELECT * FROM cliente WHERE nick = '$nick'";
 		$resultado = pg_query($consult) or die (pg_last_error());
 		desconectar();
-		if(mysql_num_rows($resultado) != 0)
+		if(pg_num_rows($resultado) != 0)
 		{
 			$estaregistrado = true;
 		}
@@ -42,7 +42,7 @@ include('UsuarioModelo.php');
 		desconectar();
 //		$row = mysql_fetch_array($result);
 //		$password = row["password"];
-		$password = pg_fetch_result($result,1,0);
+		$password = pg_fetch_result($result,0,'password');
 		
 		if($pass == $password)
 		{

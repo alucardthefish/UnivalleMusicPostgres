@@ -41,7 +41,7 @@ include('../Config/conexion.php');
     {
       conectar();
       $consulta="INSERT INTO canciones_usuario (nick, titulo, artista, album, genero, ubicacion) VALUES ('$nick','$titulo','$artista','$album','$genero', '$ubicacion')";
-      pg_query($consulta) or die(pg_last_error());
+      mysql_query($consulta) or die(mysql_error());
       desconectar();
     }
 
@@ -50,7 +50,7 @@ include('../Config/conexion.php');
     {
       conectar();
       $consulta="INSERT INTO canciones_usuario (nick, titulo, artista, album, genero, ubicacion) VALUES ('$this->nick','$this->titulo','$this->artista','$this->album','$this->genero', '$this->ubicacion')";
-      pg_query($consulta) or die(pg_last_error());
+      mysql_query($consulta) or die(mysql_error());
       desconectar();
     }
 	*/
@@ -59,7 +59,7 @@ include('../Config/conexion.php');
     {
       conectar();
       $consulta="SELECT * FROM canciones_usuario WHERE nick = '$nick'";
-      $datos = pg_query($consulta) or die(pg_last_error());
+      $datos = mysql_query($consulta) or die(mysql_error());
       desconectar();
       
 	  return $datos;      
@@ -69,7 +69,7 @@ include('../Config/conexion.php');
 	{
 		conectar();
 		$consulta ="SELECT * FROM canciones_usuario WHERE nick = '$nick' and $filtro like '$busqueda%'";
-		$tabla = pg_query($consulta) or die(pg_last_error());
+		$tabla = mysql_query($consulta) or die(mysql_error());
 		desconectar();
 		
 		return $tabla;
@@ -79,7 +79,7 @@ include('../Config/conexion.php');
 	{
 		conectar();
 		$asignarquery = "UPDATE canciones_usuario SET megusta = true WHERE id_cancion_usuario = '$idcancion'";
-		pg_query($asignarquery) or die(pg_last_error());
+		mysql_query($asignarquery) or die(mysql_error());
 		desconectar();
 	}
 	
@@ -87,7 +87,7 @@ include('../Config/conexion.php');
 	{
 		conectar();
 		$asignarquery = "UPDATE canciones_usuario SET megusta = false WHERE id_cancion_usuario = '$idcancion'";
-		pg_query($asignarquery) or die(pg_last_error());
+		mysql_query($asignarquery) or die(mysql_error());
 		desconectar();
 	}
 	
@@ -97,7 +97,7 @@ include('../Config/conexion.php');
 		unlink($dircancion);
 		conectar();
 		$deletequery = "DELETE FROM canciones_usuario WHERE id_cancion_usuario = '$idcancion'";
-		pg_query($deletequery) or die(pg_last_error());
+		mysql_query($deletequery) or die(mysql_error());
 		desconectar();
 	}
     
@@ -105,7 +105,7 @@ include('../Config/conexion.php');
     {
       conectar();
       $consulta="SELECT titulo, artista, album, genero FROM canciones_usuario WHERE nick = '$nick' and titulo like '$titulo%'";
-      $datos = pg_query($consulta) or die(pg_last_error());
+      $datos = mysql_query($consulta) or die(mysql_error());
       desconectar();
       
 	  return $datos;      
@@ -115,7 +115,7 @@ include('../Config/conexion.php');
     {
       conectar();
       $consulta="SELECT titulo, artista, album, genero FROM canciones_usuario WHERE nick = '$nick' and artista like '$artista%'";
-      $datos = pg_query($consulta) or die(pg_last_error());
+      $datos = mysql_query($consulta) or die(mysql_error());
       desconectar();
       
 	  return $datos;      
@@ -125,7 +125,7 @@ include('../Config/conexion.php');
     {
       conectar();
       $consulta="SELECT titulo, artista, album, genero FROM canciones_usuario WHERE nick = '$nick' and album like '$album%'";
-      $datos = pg_query($consulta) or die(pg_last_error());
+      $datos = mysql_query($consulta) or die(mysql_error());
       desconectar();
       
 	  return $datos;      
@@ -135,7 +135,7 @@ include('../Config/conexion.php');
     {
       conectar();
       $consulta="SELECT titulo, artista, album, genero FROM canciones_usuario WHERE nick = '$nick' and genero like '$genero%'";
-      $datos = pg_query($consulta) or die(pg_last_error());
+      $datos = mysql_query($consulta) or die(mysql_error());
       desconectar();
       
 	  return $datos;      
@@ -145,7 +145,7 @@ include('../Config/conexion.php');
     {
       conectar();
       $consulta="UPDATE canciones_usuario SET titulo = '$tituloModificar', artista = '$artistaModificar', album = '$album', genero = '$genero'  WHERE nick = '$idCancion'";
-      $datos = pg_query($consulta) or die(pg_last_error());
+      $datos = mysql_query($consulta) or die(mysql_error());
       desconectar();
       
 	  return $datos;      

@@ -58,7 +58,7 @@ include('../Config/conexion.php');
     function mostrarCanciones($nick)
     {
       conectar();
-      $consulta="SELECT * FROM canciones_usuario WHERE nick = '$nick'";
+      $consulta="SELECT * FROM canciones_usuario WHERE nick = '$nick' order by titulo";
       $datos = pg_query($consulta) or die(pg_last_error());
       desconectar();
       
@@ -68,7 +68,7 @@ include('../Config/conexion.php');
 	function mostrarCancionesSeleccion($nick, $filtro, $busqueda)
 	{
 		conectar();
-		$consulta ="SELECT * FROM canciones_usuario WHERE nick = '$nick' and $filtro ilike '$busqueda%'";
+		$consulta ="SELECT * FROM canciones_usuario WHERE nick = '$nick' and $filtro ilike '$busqueda%' order by titulo";
 		$tabla = pg_query($consulta) or die(pg_last_error());
 		desconectar();
 		

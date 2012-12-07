@@ -17,7 +17,7 @@ $genero="";
 	
 	$lista = "";
 	
-	while($row = mysql_fetch_array($querymostrar))
+	while($row = pg_fetch_array($querymostrar))
 	{ 
 		$lista = $lista."<li><a href=\"#\" data-src=\"".$row['ubicacion']."\">".$row['titulo']."</a></li>";
 	}

@@ -61,19 +61,19 @@ echo "antes de verificar errores del archivo";
 	$tabla = "<table class=\"table table-bordered\"><thead><tr><th>Titulo</th><th>Artista</th><th>Album</th><th>Genero</th></tr></thead><tbody>";
 //	echo "<script>alert('Acaba de crear la primer parte del string con html para la tabla');</script>";
 //	echo "<script>alert('".$tabla."');</script>";
-	
-	while($row = pg_fetch_array($querymostrar))
-    { 
-		$tabla = $tabla."<tr><td>".$row['titulo']."</td><td>".$row['artista']."</td><td>".$row['album']."</td><td>".$row['genero']."</td></tr>";
-	}
-//	echo "<script>alert('Justo despues de haber escrito datos en la tabla con el while');</script>";
-//	echo "<script>alert('".$tabla."');</script>";
-			
-	$tabla = $tabla."</tbody></table>";
-//		echo "<script>alert('Se ha escrito todo el html en el string tabla');</script>";
-//		echo "<script>alert('".$tabla."');</script>";
 
-	echo "<script>parent.document.getElementById('tablademuestra').innerHTML = '".$tabla."';</script>";
+	$datosdiv = "";
+
+	while($row = pg_fetch_array($querymostrar))
+	{ 
+		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']."</h4><hr /><div class=\"row-fluid\"><div class=\"span4\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span4\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span4\"><strong>Genero: </strong> ".$row['genero']."</div></div></div></div>";
+	}
+	
+	//echo $datosdiv;
+	
+	
+
+	echo "<script>parent.document.getElementById('tablademuestra').innerHTML = '".$datosdiv."';</script>";
 	
 
       

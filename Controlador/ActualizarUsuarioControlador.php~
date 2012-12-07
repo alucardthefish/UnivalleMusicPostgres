@@ -32,19 +32,16 @@ $passwordconfirm = $_POST['passwordconfirm'];
 				$objcliente = new ClienteModelo();
 				$querymostrar = $objcliente-> getPasswordByNick($nick);
 				
-				$passwordtmp = pg_fetch_result($querymostrar,0,'password');
-				$emailtmp = pg_fetch_result($querymostrar,0,'email');
-				
-				
-				
-				if($passwordtmp==$password)
+				while($row = mysql_fetch_array($querymostrar))
+				{
+				if($row['password']==$password)
 				  {
-				$objcliente->actualizarUsuario($nick,$emailtmp,$email,$nombre,$apellido,$passwordnew);
+				$objcliente->actualizarUsuario($nick,$row['email'],$email,$nombre,$apellido,$passwordnew);
 				echo "<div class='alert alert-success'><a class='close' data-dismiss='alert'>x</a><h4 class='alert-heading'>Tu cuenta ha sido Actualizada!</h4>Compruebalo iniciando sesion logeandote con tu nick y constrasena</div>";
 				  }
 				  else{echo "<div class='alert alert-error'><a class='close' data-dismiss='alert'>x</a><h4 class='alert-heading'>Contrasena incorrecta!</h4>Por favor ingresa correctamente tu contrasena actual</div>";}
 				
-				
+				}
 				
 				
 				

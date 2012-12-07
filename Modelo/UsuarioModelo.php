@@ -68,7 +68,8 @@ include('../Config/conexion.php');
 	public function getPasswordByNick($nick)
 	{
 	 conectar();
-      $consulta="SELECT * FROM usuario join cliente  WHERE cliente.email=usuario.email and nick = '$nick'";
+	 $consulta="SELECT * FROM usuario inner join cliente on (cliente.email = usuario.email and cliente.nick = '$nick')";
+      //$consulta="SELECT * FROM usuario join cliente  WHERE cliente.email=usuario.email and nick = '$nick'";
       $datos = pg_query($consulta) or die(pg_last_error());
       desconectar();
       

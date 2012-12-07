@@ -22,6 +22,14 @@ include('../Config/conexion.php');
       pg_query($consulta) or die(pg_last_error());
       desconectar();
     }
+    
+     public function actualizarUsuario($nick,$email,$emailnew,$nombre,$apellido,$password)
+    {
+      conectar();
+     $asignarqueryusuario = "UPDATE usuario SET email = '$emailnew', password = '$password', nombre= '$nombre', apellido ='$apellido' WHERE email = '$email'";
+      pg_query($asignarqueryusuario) or die(pg_last_error());
+      desconectar();
+    }
 	
 	public function getNombre()
 	{
@@ -56,6 +64,16 @@ include('../Config/conexion.php');
 	public function getPassword()
 	{
 		return $this->password;
+	}
+	public function getPasswordByNick($nick)
+	{
+	 conectar();
+	 $consulta="SELECT password, email FROM usuario inner join cliente on (cliente.email = usuario.email and cliente.nick = '$nick')";
+      //$consulta="SELECT * FROM usuario join cliente  WHERE cliente.email=usuario.email and nick = '$nick'";
+      $datos = pg_query($consulta) or die(pg_last_error());
+      desconectar();
+      
+	  return $datos;	
 	}
 	
 	public function setPassword($password)

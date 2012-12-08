@@ -21,11 +21,12 @@ $genero="";
 	{ 
 		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']." /Precio: ".$row['precio']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\">";
 		if ($row['recomendado']==f){
-		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"javascript:addToListplayer(".$row['id_cancion_venta'].")\" name=\"option1\" value=\"Milk\"><br></div></div></div></div>";
+		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"recomendar(".$row['id_cancion_venta'].")\"  ><br></div></div></div></div>";
 		}
 		else{
-		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"javascript:removeFromListplayer(".$row['id_cancion_venta'].")\" name=\"option1\" value=\"Milk\" checked><br></div></div></div></div>";
+		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"desrecomendar(".$row['id_cancion_venta'].")\"  checked><br></div></div></div></div>";
 		}
+		
 	}
 	
 	
@@ -34,7 +35,7 @@ $genero="";
 	break;
 	
 	case "addlike":
-
+	
 	$modeloLike = new CancionVentaModelo();
 	$modeloLike->setRecomendadoTrue($_POST['idcancion']); //Se modifica el campo megusta a true
 	
@@ -51,10 +52,10 @@ $genero="";
 		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']." /Precio: ".$row['precio']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\">";
 		
 		if ($row['recomendado']==f){
-		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"javascript:addToListplayer(".$row['id_cancion_venta'].")\" name=\"option1\" value=\"Milk\" ><br></div></div></div></div>";
+		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"recomendar(".$row['id_cancion_venta'].")\" name=\"option1\" value=\"Milk\" ><br></div></div></div></div>";
 		}
 		else{
-		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"javascript:removeFromListplayer(".$row['id_cancion_venta'].")\" name=\"option1\" value=\"Milk\" checked><br></div></div></div></div>";
+		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"desrecomendar(".$row['id_cancion_venta'].")\" name=\"option1\" value=\"Milk\" checked><br></div></div></div></div>";
 		}
 	}
 	
@@ -82,10 +83,10 @@ $genero="";
 		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']." /Precio: ".$row['precio']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\">";
 		
 		if ($row['recomendado']==f){
-		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"javascript:addToListplayer(".$row['id_cancion_venta'].")\" name=\"option1\" value=\"Milk\"  ><br></div></div></div></div>";
+		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"recomendar(".$row['id_cancion_venta'].")\" name=\"option1\" value=\"Milk\"  ><br></div></div></div></div>";
 		}
 		else{
-		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"javascript:removeFromListplayer(".$row['id_cancion_venta'].")\" name=\"option1\" value=\"Milk\" checked><br></div></div></div></div>";
+		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"desrecomendar(".$row['id_cancion_venta'].")\" name=\"option1\" value=\"Milk\" checked><br></div></div></div></div>";
 		}
 	}
 	

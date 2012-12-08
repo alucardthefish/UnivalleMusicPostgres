@@ -1,6 +1,5 @@
 <?php
- 
-echo "antes de verificar errores del archivo";
+
   $nick = "Admin"; //en el futuro se asignara a esta variable desde la sesion que se registre
   $titulo= $_POST["titulo"];
   $artista= $_POST["artista"];
@@ -38,48 +37,42 @@ echo "antes de verificar errores del archivo";
     {
       move_uploaded_file($_FILES["file"]["tmp_name"], "../Usuarios/Admin/" . $_FILES["file"]["name"]);
 	  move_uploaded_file($_FILES["fileImage"]["tmp_name"], "../Usuarios/Admin/" . $_FILES["fileImage"]["name"]);
-      //echo "Stored in: " . "../Usuarios/sergionick/" . $_FILES["file"]["name"];
-      //echo "<h3>Almacenado en el espacio correspondiente al usuario con nick de prueba: " . "../Usuarios/nickprueba/" . $_FILES["file"]["name"];
-	  //echo "antes";
-      echo "exactamente antes de incluir y crear el modelo objeto";
+
+
       include_once("../Modelo/CancionVentaModelo.php");
-	  
+	
       //Aqui va originalmente la creacion del objeto $controller = new CancionUsuarioModelo($nick, $titulo, $artista, $album, $genero, $ubicacion);
 	  $controller = new CancionVentaModelo();
 	
-      echo "se creo el objeto cancionventamodelo";
-      //echo "<h2>Despues</h2>";
+
+      
       $controller->insertarCancion($nick, $titulo, $artista, $album, $genero, $foto,$precio,$ubicacion);
 
-	
-      echo "insertado satisfactoriamente en la base de datos";
-      
-      echo "<script languaje='Javascript'>parent.document.getElementById('resultado').innerHTML = '".$mensaje."';
-                                parent.document.getElementById('titulo').value='';parent.document.getElementById('artista').value='';
-                                parent.document.getElementById('album').value='';parent.document.getElementById('genero').value='';
-                                parent.document.getElementById('file').value=''; </script>";
+	   
+     
 
 	$querymostrar = $controller->mostrarCanciones($nick);
 
-//	echo "<script>alert('Despues de recibir los datos de la tabla canciones_usuario');</script>";
+
 	
 	//espacio para empezar a crear la tabla
-	$tabla = "<table class=\"table table-bordered\"><thead><tr><th>Titulo</th><th>Artista</th><th>Album</th><th>Genero</th></tr></thead><tbody>";
-//	echo "<script>alert('Acaba de crear la primer parte del string con html para la tabla');</script>";
-//	echo "<script>alert('".$tabla."');</script>";
+	$datosdiv = "";
 	
 	while($row = pg_fetch_array($querymostrar))
-    { 
-		$tabla = $tabla."<tr><td>".$row['titulo']."</td><td>".$row['artista']."</td><td>".$row['album']."</td><td>".$row['genero']."</td><td>".$row['precio']."</td></tr>";
+	{  
+		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']." /Precio: ".$row['precio']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\">";
+		if ($row['recomendado']==f){
+		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"recomendado(".$row['id_cancion_venta'].")\" name=\"option1\" value=\"Milk\"><br></div></div></div></div>";
+		}
+		else{
+		$datosdiv = $datosdiv."<label>Recomendado</label><input type=\"checkbox\" onclick=\"desrecomendado(".$row['id_cancion_venta'].")\" name=\"option1\" value=\"Milk\" checked><br></div></div></div></div>";
+		}
 	}
-//	echo "<script>alert('Justo despues de haber escrito datos en la tabla con el while');</script>";
-//	echo "<script>alert('".$tabla."');</script>";
-			
-	$tabla = $tabla."</tbody></table>";
-//		echo "<script>alert('Se ha escrito todo el html en el string tabla');</script>";
-//		echo "<script>alert('".$tabla."');</script>";
+	
+	
 
-	echo "<script>parent.document.getElementById('tablademuestra').innerHTML = '".$tabla."';</script>";
+	
+	echo "<script>parent.document.getElementById('tablademuestra').innerHTML = '".$datosdiv."';</script>";
 	
 
       

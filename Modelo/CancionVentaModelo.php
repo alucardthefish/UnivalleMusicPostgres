@@ -25,8 +25,11 @@ include('../Config/conexion.php');
 	function insertarCancion($nick, $titulo, $artista, $album, $genero, $foto,$precio,$ubicacion)
     {
       conectar();
+   
       $consulta="INSERT INTO cancionesenventa (nick, titulo, artista, album, genero,foto, precio, ubicacion_cancion) VALUES ('$nick','$titulo','$artista','$album','$genero','$foto', '$precio','$ubicacion')";
+       
       pg_query($consulta) or die(pg_last_error());
+    
       desconectar();
     }
 
@@ -34,7 +37,7 @@ include('../Config/conexion.php');
 	{
 		conectar();
 		$asignarquery = "UPDATE cancionesenventa SET recomendado = true WHERE id_cancion_venta = '$idcancion'";
-		pg_query($consulta) or die(pg_last_error());
+		pg_query($asignarquery) or die(pg_last_error());
 		desconectar();
 	}
 	
@@ -42,14 +45,14 @@ include('../Config/conexion.php');
 	{
 		conectar();
 		$asignarquery = "UPDATE cancionesenventa SET recomendado = false WHERE id_cancion_venta = '$idcancion'";
-		pg_query($consulta) or die(pg_last_error());
+		pg_query($asignarquery) or die(pg_last_error());
 		desconectar();
 	}
     
     function mostrarCanciones($nick)
     {
       conectar();
-      $consulta="SELECT * FROM cancionesenventa WHERE nick = '$nick'";
+      $consulta="SELECT * FROM cancionesenventa WHERE nick = '$nick' order by titulo";
       $datos = pg_query($consulta) or die(pg_last_error());
       desconectar();
       

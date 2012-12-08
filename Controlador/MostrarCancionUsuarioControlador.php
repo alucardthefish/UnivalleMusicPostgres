@@ -40,7 +40,7 @@ $genero="";
 	while($row = pg_fetch_array($querymostrar))
 	{
 		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\">";
-		if($row['megusta'] == f)
+		if($row['megusta'] == @f)
 		{
 			$datosdiv = $datosdiv."<button onclick=\"javascript:addToListplayer(".$row['id_cancion_usuario'].")\" class=\"btn btn-success\"><i class=\"icon-thumbs-up icon-white\"></i> Me Gusta</button> ";
 		}
@@ -97,7 +97,7 @@ $genero="";
 		while($row = pg_fetch_array($querymostrar))
 		{
 			$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\">";
-			if($row['megusta'] == f)
+			if($row['megusta'] == @f)
 			{
 				$datosdiv = $datosdiv."<button onclick=\"addToListplayer(".$row['id_cancion_usuario'].");mostrarTablaPorSeleccion();\" class=\"btn btn-success\"><i class=\"icon-thumbs-up icon-white\"></i> Me Gusta</button> ";
 			}
@@ -136,7 +136,7 @@ $genero="";
 	while($row = pg_fetch_array($querymostrar))
 	{
 		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\">";
-		if($row['megusta'] == f)
+		if($row['megusta'] == @f)
 		{
 			$datosdiv = $datosdiv."<button onclick=\"addToListplayer(".$row['id_cancion_usuario'].");\" class=\"btn btn-success\"><i class=\"icon-thumbs-up icon-white\"></i> Me Gusta</button> ";
 		}
@@ -177,7 +177,7 @@ $genero="";
 	while($row = pg_fetch_array($querymostrar))
 	{
 		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\">";
-		if($row['megusta'] == f)
+		if($row['megusta'] == @f)
 		{
 			$datosdiv = $datosdiv."<button onclick=\"addToListplayer(".$row['id_cancion_usuario'].")\" class=\"btn btn-success\"><i class=\"icon-thumbs-up icon-white\"></i> Me Gusta</button> ";
 		}
@@ -217,7 +217,7 @@ $genero="";
 	while($row = pg_fetch_array($querymostrar))
 	{
 		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\">";
-		if($row['megusta'] == f)
+		if($row['megusta'] == @f)
 		{
 			$datosdiv = $datosdiv."<button onclick=\"addToListplayer(".$row['id_cancion_usuario'].")\" class=\"btn btn-success\"><i class=\"icon-thumbs-up icon-white\"></i> Me Gusta</button> ";
 		}

@@ -1,4 +1,5 @@
 <?php
+include('../Config/conexion.php');
 include_once("../Modelo/CancionVentaModelo.php");
 $opc = $_POST["opcion"];
 $nick = "Admin";

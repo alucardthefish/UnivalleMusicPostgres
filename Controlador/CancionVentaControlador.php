@@ -1,5 +1,5 @@
 <?php
-
+include('../Config/conexion.php');
   $nick = "Admin"; //en el futuro se asignara a esta variable desde la sesion que se registre
   $titulo= $_POST["titulo"];
   $artista= $_POST["artista"];

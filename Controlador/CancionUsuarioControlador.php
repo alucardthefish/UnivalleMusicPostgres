@@ -1,5 +1,6 @@
 <?php
 session_start();
+include('../Config/conexion.php');
 echo "antes de verificar errores del archivo";
   $nick = $_SESSION['nick'];
 //  $nick = "sergionick"; //en el futuro se asignara a esta variable desde la sesion que se registre

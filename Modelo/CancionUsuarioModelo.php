@@ -1,5 +1,5 @@
 <?php 
-include('../Config/conexion.php');
+//include('../Config/conexion.php');
   class CancionUsuarioModelo
   {    
     var $nick;
@@ -37,7 +37,7 @@ include('../Config/conexion.php');
     }
 	*/
 	
-	function insertarCancion($nick, $titulo, $artista, $album, $genero, $ubicacion)
+	public function insertarCancion($nick, $titulo, $artista, $album, $genero, $ubicacion)
     {
       conectar();
       $consulta="INSERT INTO canciones_usuario (nick, titulo, artista, album, genero, ubicacion) VALUES ('$nick','$titulo','$artista','$album','$genero', '$ubicacion')";
@@ -55,7 +55,7 @@ include('../Config/conexion.php');
     }
 	*/
     
-    function mostrarCanciones($nick)
+    public function mostrarCanciones($nick)
     {
       conectar();
       $consulta="SELECT * FROM canciones_usuario WHERE nick = '$nick' order by titulo";
@@ -65,7 +65,7 @@ include('../Config/conexion.php');
 	  return $datos;      
     }
     
-	function mostrarCancionesSeleccion($nick, $filtro, $busqueda)
+	public function mostrarCancionesSeleccion($nick, $filtro, $busqueda)
 	{
 		conectar();
 		$consulta ="SELECT * FROM canciones_usuario WHERE nick = '$nick' and $filtro ilike '$busqueda%' order by titulo";
@@ -75,7 +75,7 @@ include('../Config/conexion.php');
 		return $tabla;
 	}
 	
-	function setMeGustaTrue($idcancion)
+	public function setMeGustaTrue($idcancion)
 	{
 		conectar();
 		$asignarquery = "UPDATE canciones_usuario SET megusta = true WHERE id_cancion_usuario = '$idcancion'";
@@ -83,7 +83,7 @@ include('../Config/conexion.php');
 		desconectar();
 	}
 	
-	function setMeGustaFalse($idcancion)
+	public function setMeGustaFalse($idcancion)
 	{
 		conectar();
 		$asignarquery = "UPDATE canciones_usuario SET megusta = false WHERE id_cancion_usuario = '$idcancion'";

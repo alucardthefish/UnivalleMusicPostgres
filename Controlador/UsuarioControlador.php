@@ -1,4 +1,5 @@
 <?php
+include('../Config/conexion.php');
 $accion = $_POST["accion"];
 
 $nombre = $_POST['nombre'];

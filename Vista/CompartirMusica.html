@@ -83,7 +83,15 @@
 				{
 					if(objAjax.readyState==4)
 					{
-						document.getElementById("tablademuestra").innerHTML = objAjax.responseText;
+						var msjServidor = objAjax.responseText;
+						if(msjServidor == "exitocompartiendo")
+						{
+							mostrarBusquedaCompartir();
+						}
+						else
+						{
+							document.getElementById("tablademuestra").innerHTML = msjServidor;
+						}
 					}
 				}
 			}
@@ -104,7 +112,7 @@
 					<div class="row-fluid">
 						<div class="span3">
 							<p>
-								Especifica el nick de la persona a la que le compartiras musica y selecciona las canciones que desees. 
+								Especifica el nick de la persona a la que le compartiras tu musica, dale en buscar y selecciona las canciones que tengas disponibles para convidar. 
 							</p>
 							
 							<form name="nick_filtro">
@@ -139,32 +147,8 @@
 							</div>
 							<div class="row-fluid">
 								<div class="span12" id="tablademuestra" name="tablademuestra">
-									<div class="row-fluid">
-										<div class="well span12">
-											<h4><i class="icon-music"></i> Caraluna</h4><hr />
-											<div class="row-fluid">
-												<div class="span3"><strong>Artista:</strong> Bacilos</div>
-												<div class="span3"><strong>Album: </strong> Primer palo</div>
-												<div class="span3"><strong>Genero: </strong> Pop</div>
-												<div class="span3"><button class="btn disabled">Compartir</button></div>
-											</div>
-											<div class="row-fluid">
-												<div class="span12"><span class="label label-success">La cancion ha sido compartida</span></div>
-											</div>
-										</div>
-									</div>
-									<div class="row-fluid">
-										<div class="well span12">
-											<h4><i class="icon-music"></i> Tabaco y chanel</h4><hr />
-											<div class="row-fluid">
-												<div class="span3"><strong>Artista:</strong> Bacilos</div>
-												<div class="span3"><strong>Album: </strong> Primer palo</div>
-												<div class="span3"><strong>Genero: </strong> Pop</div>
-												<div class="span3"><button class="btn">Compartir</button></div>
-											</div>
-										</div>
-									</div>
 									<!-- Aqui se cargara las canciones del usuario -->
+									
 								</div>
 							</div>
 						</div>

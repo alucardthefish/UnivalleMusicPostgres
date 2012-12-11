@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	include('../Config/conexion.php');
 	include_once("../Modelo/ClienteModelo.php");
 	$accion = $_POST["accion"];
 

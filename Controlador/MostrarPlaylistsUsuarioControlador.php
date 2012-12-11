@@ -1,7 +1,8 @@
 <?php
+include('../Config/conexion.php');
 include_once("../Modelo/PlaylistModelo.php");
 $opc = $_POST["opcion"];
-$nick = "sergionick";
+$nick = "fannynick";
 $titulo="";
 $artista="";
 $album="";
@@ -27,6 +28,25 @@ $genero="";
 	
 	break;
 	
+//------------------------------------------------------------------------------------------------------------------------
+
+	case "reprocompartidas":
+	
+	$modeloreproductor = new PlaylistModelo();
+	$resultconsulta = $modeloreproductor->getPlaylistCompartidas($nick);
+	
+	$lista = "";
+	
+	while($row = pg_fetch_array($resultconsulta))
+	{
+		$lista = $lista."<li><a href=\"#\" data-src=\"".$row['ubicacion']."\">".$row['titulo']." -compartido por: ".$row['nick']."</a></li>";
+	}
+	
+	echo $lista;
+	
+	break;
+
+//-------------------------------------------------------------------------------------------------------------------------	
 	
   }
 ?>

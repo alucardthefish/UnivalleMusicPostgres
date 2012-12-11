@@ -24,7 +24,7 @@ $genero="";
 	
 	while($row = pg_fetch_array($querymostrar))
 	{
-		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\"><button class=\"btn disabled\">Compartir</button></div></div></div></div>";
+		$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\"><button class=\"btn btn-success disabled\"><i class=\"icon-share icon-white\"></i> Compartir</button></div></div></div></div>";
 	}	
 	
 	echo $datosdiv;
@@ -44,7 +44,7 @@ $genero="";
 			$datosdiv = "";
 			while($row = pg_fetch_array($querymostrar))
 			{
-				$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\"><button class=\"btn disabled\">Compartir</button></div></div></div></div>";
+				$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\"><button class=\"btn btn-success disabled\"><i class=\"icon-share icon-white\"></i> Compartir</button></div></div></div></div>";
 			}
 			echo $datosdiv;
 		}
@@ -60,7 +60,7 @@ $genero="";
 				$datosdiv = "";
 				while($row = pg_fetch_array($querymostrar))
 				{
-					$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\"><button class=\"btn disabled\">Compartir</button></div></div></div></div>";
+					$datosdiv = $datosdiv."<div class=\"row-fluid\"><div class=\"well span12\"><h4><i class=\"icon-music\"></i> ".$row['titulo']."</h4><hr /><div class=\"row-fluid\"><div class=\"span3\"><strong>Artista:</strong> ".$row['artista']."</div><div class=\"span3\"><strong>Album: </strong> ".$row['album']."</div><div class=\"span3\"><strong>Genero: </strong> ".$row['genero']."</div><div class=\"span3\"><button class=\"btn btn-success disabled\"><i class=\"icon-share icon-white\"></i> Compartir</button></div></div></div></div>";
 				}
 				echo $datosdiv;
 			}
@@ -90,11 +90,11 @@ $genero="";
 						
 						if($instanciaCompartir->yaSeCompartio($nickdecompartido, $row['id_cancion_usuario']))
 						{
-							$datosdiv = $datosdiv."<button class=\"btn disabled\">Compartir</button></div></div>";
+							$datosdiv = $datosdiv."<button class=\"btn btn-success disabled\"><i class=\"icon-share icon-white\"></i> Compartir</button></div></div>";
 						}
 						else
 						{
-							$datosdiv = $datosdiv."<button class=\"btn\" onclick=\"compartirCancion(".$row['id_cancion_usuario'].");\">Compartir</button></div></div>";
+							$datosdiv = $datosdiv."<button class=\"btn btn-success\" onclick=\"compartirCancion(".$row['id_cancion_usuario'].");\"><i class=\"icon-share icon-white\"></i> Compartir</button></div></div>";
 						}
 					
 						if($instanciaCompartir->yaSeCompartio($nickdecompartido, $row['id_cancion_usuario']))
@@ -125,11 +125,11 @@ $genero="";
 							
 							if($instanciaCompartir->yaSeCompartio($nickdecompartido, $row['id_cancion_usuario']))
 							{
-								$datosdiv = $datosdiv."<button class=\"btn disabled\">Compartir</button></div></div>";
+								$datosdiv = $datosdiv."<button class=\"btn btn-success disabled\"><i class=\"icon-share icon-white\"></i> Compartir</button></div></div>";
 							}
 							else
 							{
-								$datosdiv = $datosdiv."<button class=\"btn\" onclick=\"compartirCancion(".$row['id_cancion_usuario'].");\">Compartir</button></div></div>";
+								$datosdiv = $datosdiv."<button class=\"btn btn-success\" onclick=\"compartirCancion(".$row['id_cancion_usuario'].");\"><i class=\"icon-share icon-white\"></i> Compartir</button></div></div>";
 							}
 					
 							if($instanciaCompartir->yaSeCompartio($nickdecompartido, $row['id_cancion_usuario']))

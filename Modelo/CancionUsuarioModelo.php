@@ -144,7 +144,9 @@
     function actualizarCancion($idCancion)
     {
       conectar();
+	//mysql
       $consulta="UPDATE canciones_usuario SET titulo = '$tituloModificar', artista = '$artistaModificar', album = '$album', genero = '$genero'  WHERE nick = '$idCancion'";
+	  $consulta="UPDATE canciones_usuario SET titulo='$titulo', artista='$artista', album='$album', genero='$genero' WHERE id_cancion_usuario = '$idcancion'";
       $datos = pg_query($consulta) or die(pg_last_error());
       desconectar();
       

@@ -51,6 +51,21 @@
 							    </li>
 							  </ul>
 							</li>
+							
+							<li class="dropdown">
+							  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+								Mis Listas <b class="caret"></b>
+							  </a>
+							  <ul class="dropdown-menu">
+							    <li>
+							      <a href="crearplaylist.php">Crear Listas</a>
+							    </li>
+							    <li>
+							      <a href="agregarCancionListaRep.php">Agregar Canciones</a>
+							    </li>
+							  </ul>
+							</li>
+							
 							<li><a href="#">Catalogo de Musica</a></li>
 						</ul>
 						

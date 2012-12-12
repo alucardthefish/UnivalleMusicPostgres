@@ -1,3 +1,13 @@
+<?php
+	session_start();
+
+	if($_SESSION['login']!="ok")	//si la variable de sesion login es diferente a "ok"
+	{
+		header("Location: LoginRegistro.php"); 	//redirgimos al login.php
+	}
+	else	//si la variable es igual a "ok" mostramos el contenido..
+	{
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -6,23 +16,19 @@
 		<link href="../Assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="../Scripts/XHRObjeto.js"></script>
+		<script src="../Scripts/manejaSesion.js"></script>
 		<script>
-			function mostrartabla()
+			function mostrarlistas()
 			{
 				var objAjax = new objetoAjax();
 				
-				var opc="mostrarLoQueMeComparten";
-				
-				var lista = document.getElementById("opciones");
-				var indiceSeleccionado = lista.selectedIndex;
-				var opcionSeleccionada = lista.options[indiceSeleccionado];
-				var valorSeleccionado = opcionSeleccionada.value;
-				
-				objAjax.open("POST", "../Controlador/CompartirMusicaControlador.php", true);
+				var opc="mostrarPlaylists";
+								
+				objAjax.open("POST", "../Controlador/ListasderepControlador.php", true);
 				
 				objAjax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 				
-				objAjax.send("opcion="+opc+"&nickremitente="+valorSeleccionado);
+				objAjax.send("opcion="+opc);
 				
 				objAjax.onreadystatechange=function()
 				{
@@ -33,29 +39,42 @@
 				}
 				
 			}
-			mostrartabla();
+			
 
-			function listarNicks()
+			function crearLista()
 			{
 				var objAjax = new objetoAjax();
 				
-				var opc = "mostrarNicks";
+				var opc = "crearLista";
 				
-				objAjax.open("POST", "../Controlador/CompartirMusicaControlador.php", true);
+				var nombreDeLista = document.getElementById("nombreplaylist").value;
+				
+				objAjax.open("POST", "../Controlador/ListasderepControlador.php", true);
 				
 				objAjax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 				
-				objAjax.send("opcion="+opc);
+				objAjax.send("opcion="+opc+"&nombre_lista="+nombreDeLista);
+				
+				var msjPositivo = "<div class='alert alert-success'><a class='close' data-dismiss='alert'>x</a><h4 class='alert-heading'>Lista de reproduccion creada!</h4>Lista de reproduccion: "+nombreDeLista+"</div>";
+				
+				var msjNegativo = "<div class='alert alert-error'><a class='close' data-dismiss='alert'>x</a><h4 class='alert-heading'>Oops dejaste campos vacios!</h4>No se pudo crear la lista por que el campo de nombre no fue especificado</div>";
 				
 				objAjax.onreadystatechange=function()
 				{
 					if (objAjax.readyState==4)
 					{
-						document.getElementById("opciones").innerHTML = objAjax.responseText;
+						var respServidor = objAjax.responseText;
+						if(respServidor == "listacreada")
+						{
+							document.getElementById("resultado").innerHTML = msjPositivo;
+						}
+						else
+						{
+							document.getElementById("resultado").innerHTML = msjNegativo;
+						}
+						mostrarlistas();
 					}
-				}
-				mostrartabla();
-				
+				}				
 			}
 			
 			function borrarCompartida(idcompartida)
@@ -93,7 +112,10 @@
 		
 	</head>
 	<!-- onload="mostrartabla(); onload="listarNicks();""-->
-	<body>
+	<body onload="mostrarlistas();">
+		
+		<!-- Aqui va el navbar del usuario logueado -->
+		<?php include('navLogueados.php'); // la barra de navegación ?>
 		
 		<div class="container-fluid">
 			<div class="row-fluid">			
@@ -111,7 +133,7 @@
 									<label>Nombre de playlist:</label>
 									<input type="text" id="nombreplaylist" name="nombreplaylist" />
 									<br />
-									<button onclick="mostrartabla();return false;" class="btn btn-primary"><i class="icon-plus icon-white"></i> Crear</button>
+									<button onclick="crearLista();return false;" class="btn btn-primary"><i class="icon-plus icon-white"></i> Crear</button>
 								</fieldset>
 							</form>
 							
@@ -127,28 +149,22 @@
 								<div class="span12" id="tablademuestra" name="tablademuestra">
 									<!-- Aqui se cargara las canciones del usuario -->
 									<div class="row-fluid">
-									  <div class="well span3">Lista1</div>
-									  <div class="well span3">Lista2</div>
-									  <div class="well span3">Lista3</div>
-									  <div class="well span3">Lista4</div>
-									</div>
-									  <div class="row-fluid">
-									    <div class="well span3">Lista5</div>
-									    <div class="well span3">Lista6</div>
-									    <div class="well span3">Lista7</div>
-									    <div class="well span3">Lista8</div>
-									  </div>
-									  <div class="row-fluid">
-									    <div class="well span3">Lista9</div>
-									    <div class="well span3">Lista10</div>
-									    <div class="well span3">Lista11</div>
-									    <div class="well span3">Lista12</div>
-									  </div>
+									  <div class="span9 alert alert-block"><h4>Mi rock de los 80 y demas</h4></div>
 									</div>
 									<div class="row-fluid">
-									    <div class="well span3">Lista13</div>
-									    <div class="well span3">Lista14</div>
-									    <div class="well span3">Lista15</div>
+									  <div class="well span9">Lista2</div>
+									</div>
+									<div class="row-fluid">
+									  <div class="well span9">Lista3</div>
+									</div>  
+									<div class="row-fluid">
+									  <div class="well span9">Lista4</div>
+									</div>
+									<div class="row-fluid">
+									  <div class="well span9">Lista4</div>
+									</div>
+									<div class="row-fluid">
+									  <div class="well span9">Lista4</div>
 									</div>
 								</div>
 							</div>
@@ -158,7 +174,8 @@
 				</div>
 			</div>
 			
-			
+			<!-- Aqui va el footer -->
+			<?php include('footer.php');?>
 			
 		</div>
 		
@@ -168,3 +185,6 @@
 		<script src="../Assets/bootstrap/js/bootstrap.min.js"></script>
 	</body>
 </html>
+<?php
+}
+?>

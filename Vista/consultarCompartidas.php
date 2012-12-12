@@ -1,3 +1,13 @@
+<?php
+	session_start();
+
+	if($_SESSION['login']!="ok")	//si la variable de sesion login es diferente a "ok"
+	{
+		header("Location: LoginRegistro.php"); 	//redirgimos al login.php
+	}
+	else	//si la variable es igual a "ok" mostramos el contenido..
+	{
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -6,6 +16,7 @@
 		<link href="../Assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="../Scripts/XHRObjeto.js"></script>
+		<script src="../Scripts/manejaSesion.js"></script>
 		<script>
 			function mostrartabla()
 			{
@@ -95,6 +106,9 @@
 	<!-- onload="mostrartabla();"-->
 	<body onload="listarNicks();">
 		
+		<!-- Aqui va el navbar del usuario logueado -->
+		<?php include('navLogueados.php'); // la barra de navegación ?>
+		
 		<div class="container-fluid">
 			<div class="row-fluid">			
 				<div class="span12">
@@ -138,7 +152,8 @@
 				</div>
 			</div>
 			
-			
+			<!-- Aqui va el footer -->
+			<?php include('footer.php');?>
 			
 		</div>
 		
@@ -148,3 +163,6 @@
 		<script src="../Assets/bootstrap/js/bootstrap.min.js"></script>
 	</body>
 </html>
+<?php
+}
+?>

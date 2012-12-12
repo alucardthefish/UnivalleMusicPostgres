@@ -33,7 +33,7 @@
 							      <a href="consultarCompartidas.php">Consultar/Eliminar</a>
 							    </li>
 							    <li>
-							      <a href="#">Compartir Canciones</a>
+							      <a href="CompartirMusica.php">Compartir Canciones</a>
 							    </li>
 							  </ul>
 							</li>
@@ -44,13 +44,28 @@
 							  </a>
 							  <ul class="dropdown-menu">
 							    <li>
-							      <a href="#">Mi Musica</a>
+							      <a href="playlistmegusta.php">Mi Musica</a>
 							    </li>
 							    <li>
-							      <a href="#">Canciones Compartidas</a>
+							      <a href="playlistcompartidas.php">Canciones Compartidas</a>
 							    </li>
 							  </ul>
 							</li>
+							
+							<li class="dropdown">
+							  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+								Mis Listas <b class="caret"></b>
+							  </a>
+							  <ul class="dropdown-menu">
+							    <li>
+							      <a href="crearplaylist.php">Crear Listas</a>
+							    </li>
+							    <li>
+							      <a href="agregarCancionListaRep.php">Agregar Canciones</a>
+							    </li>
+							  </ul>
+							</li>
+							
 							<li><a href="#">Catalogo de Musica</a></li>
 						</ul>
 						

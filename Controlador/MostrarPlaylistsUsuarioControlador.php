@@ -1,8 +1,10 @@
 <?php
+session_start();
 include('../Config/conexion.php');
 include_once("../Modelo/PlaylistModelo.php");
 $opc = $_POST["opcion"];
-$nick = "fannynick";
+$nick = $_SESSION['nick'];
+//$nick = "fannynick";
 $titulo="";
 $artista="";
 $album="";

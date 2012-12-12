@@ -1,4 +1,4 @@
-<footer>
+<footer class="navbar navbar-fixed-bottom">
 				<hr />
 				<div class="container-fluid">
 					<div class="row-fluid">

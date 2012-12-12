@@ -1,3 +1,13 @@
+<?php
+	session_start();
+
+	if($_SESSION['login']!="ok")	//si la variable de sesion login es diferente a "ok"
+	{
+		header("Location: LoginRegistro.php"); 	//redirgimos al login.php
+	}
+	else	//si la variable es igual a "ok" mostramos el contenido..
+	{
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,8 +18,49 @@
 <!--    <script src="../Assets/bootstrap/js/jquery-1.8.3.js"></script> -->
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="../Scripts/XHRObjeto.js"></script>
+	<script src="../Scripts/manejaSesion.js"></script>
     <script src="../Scripts/audiojs/audio.min.js"></script>
     
+	<style type="text/css">
+		ol { padding: 0px; margin: 0px; list-style: decimal-leading-zero inside; color: #ccc; width: 460px; border-top: 1px solid #ccc; font-size: 0.9em; }
+		ol a { color: #888; text-decoration: none; }
+		@media (max-width: 480px) {
+			audio {
+				width: 100%;
+				display: block;
+			}
+			.audiojs {
+				width: 100%;
+			}
+			.audiojs .playing{
+				width: 100%;
+			}
+			.audiojs .scrubber{
+				/*width: 90px;*/
+				width:40%;
+				display:block;
+			}
+			.audiojs .scrubber .loaded{
+				/*width: 90px;*/
+				width:40%;
+				display: block;
+			}
+			.audiojs .time{
+				width:20%;
+				display:block;
+			}
+			ol{
+				width:100%;
+			}
+		}
+		
+		ol li { position: relative; margin: 0px; padding: 9px 2px 10px; border-bottom: 1px solid #ccc; cursor: pointer; }
+		ol li a { display: block; text-indent: -3.3ex; padding: 0px 0px 0px 20px; }
+		li.playing { color: #aaa; text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.3); }
+		li.playing a { color: #000; }
+		
+	</style>
+	
     <script>
       function mostrarplaylist()
       {	
@@ -79,40 +130,26 @@
   </head>
   <body>
 	<!-- Esta es la barra que no se mueve -->
-		<div class="navbar navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container-fluid">
-					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</a>
-					<a class="brand" href="#">Univalle Music</a>   <!-- <img alt="Univalle-Music"/> -->
-					<div class="nav-collapse">
-						<ul class="nav">
-							<li><a href="#">Inicio</a></li>
-							<li><a href="#">Acerca</a></li>
-							<li><a href="#">Contactanos</a></li>
-						</ul>
-						<p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>
-					</div> <!-- .nav-collapse -->
-				</div>
-			</div>
-		</div>
+		
+		<!-- Aqui va el navbar del usuario logueado -->
+		<?php include('navLogueados.php'); // la barra de navegación ?>
 		
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span3">
 					<!-- Sidebar Content -->
+					
 					<div class="well sidebar-nav">
 						<ul class="nav nav-list">
-							<li><a href="#">Agregar Cancion</a></li>
-							<li><a href="#">Comprar Cancion</a></li>
-							<li><a href="#">Products</a></li>
-							<li><a href="#">Services</a></li>
-							<li><a href="#">Contact</a></li>
+							<li class="nav-header">
+								Manejar Playlist Favoritos
+							</li>
+							<li class="active">
+							<a href="ConsultaConBootstrap.php">Agregar/Quitar Canciones</a>
+							</li>
 						</ul>
-					</div>	
+					</div>
+					
 				</div>
 				
 				<div class="span9">
@@ -120,20 +157,23 @@
 						
 					<div class="row-fluid">
 						<div id="wrapper">
-				  <h1 id="titulo_playlist"><em>Mi lista de reproduccion</em></h1>
-				  <audio preload></audio>
-				  <ol id="lista_playlist">
+							<h1 id="titulo_playlist"><em>Mi lista de reproduccion</em></h1>
+							<audio preload></audio>
+							<ol id="lista_playlist">
 					
-				  </ol>
-				</div>
-				
-				
+							</ol>
+						</div>
 					</div>
 				</div>
-				
-				
 			</div>
+			
+			<!-- Aqui va el footer -->
+			<?php include('footer.php');?>
+			
 		</div>		
 		<script src="../Assets/bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>
+<?php
+}
+?>

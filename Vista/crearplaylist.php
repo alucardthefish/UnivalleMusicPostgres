@@ -92,8 +92,8 @@
 		
 		
 	</head>
-	<!-- onload="mostrartabla();"-->
-	<body onload="listarNicks();">
+	<!-- onload="mostrartabla(); onload="listarNicks();""-->
+	<body>
 		
 		<div class="container-fluid">
 			<div class="row-fluid">			
@@ -110,6 +110,7 @@
 								<fieldset>
 									<label>Nombre de playlist:</label>
 									<input type="text" id="nombreplaylist" name="nombreplaylist" />
+									<br />
 									<button onclick="mostrartabla();return false;" class="btn btn-primary"><i class="icon-plus icon-white"></i> Crear</button>
 								</fieldset>
 							</form>
@@ -125,9 +126,30 @@
 							<div class="row-fluid">
 								<div class="span12" id="tablademuestra" name="tablademuestra">
 									<!-- Aqui se cargara las canciones del usuario -->
-									
-									
-									
+									<div class="row-fluid">
+									  <div class="well span3">Lista1</div>
+									  <div class="well span3">Lista2</div>
+									  <div class="well span3">Lista3</div>
+									  <div class="well span3">Lista4</div>
+									</div>
+									  <div class="row-fluid">
+									    <div class="well span3">Lista5</div>
+									    <div class="well span3">Lista6</div>
+									    <div class="well span3">Lista7</div>
+									    <div class="well span3">Lista8</div>
+									  </div>
+									  <div class="row-fluid">
+									    <div class="well span3">Lista9</div>
+									    <div class="well span3">Lista10</div>
+									    <div class="well span3">Lista11</div>
+									    <div class="well span3">Lista12</div>
+									  </div>
+									</div>
+									<div class="row-fluid">
+									    <div class="well span3">Lista13</div>
+									    <div class="well span3">Lista14</div>
+									    <div class="well span3">Lista15</div>
+									</div>
 								</div>
 							</div>
 						</div>

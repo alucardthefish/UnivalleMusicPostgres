@@ -75,6 +75,42 @@
       
 	  return $datos;	
 	}
+		function mostrarTotalCanciones($nick)
+    {
+      conectar();
+      $consulta="SELECT nick, COUNT(*) FROM canciones_usuario WHERE nick = '$nick' GROUP BY nick";
+      $datos = pg_query($consulta) or die(pg_last_error());
+      desconectar();
+      
+	  return $datos;      
+    }
+    function mostrarTotalListasReproduccion($nick)
+    {
+      conectar();
+      $consulta="SELECT id_cliente, COUNT(*) FROM lista_reproduccion WHERE id_cliente = '$nick' GROUP BY id_cliente";
+      $datos = pg_query($consulta) or die(pg_last_error());
+      desconectar();
+      
+	  return $datos;      
+    }
+	function mostrarTotalCancionesCompartidas($nick)
+    {
+      conectar();
+      $consulta="SELECT cliente_key, COUNT(*) FROM canciones_compartidas WHERE cliente_key = '$nick' GROUP BY cliente_key";
+      $datos = pg_query($consulta) or die(pg_last_error());
+      desconectar();
+      
+	  return $datos;      
+    }
+	function deleteUsuario($email)
+    {
+      conectar();
+      $consulta="DELETE FROM usuario WHERE email = '$email'";
+      $datos = pg_query($consulta) or die(pg_last_error());
+      desconectar();
+      
+	  return $datos;      
+    }
 	
 	public function setPassword($password)
 	{

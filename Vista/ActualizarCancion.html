@@ -31,22 +31,62 @@
 			
 			function darclick(id_cancion_usuario, titulo, artista, album, genero)
 			{
+			
+			//var valor_id_cancion_usuario = id_cancion_usuario;
+			//document.getElementById("id_cancion_usuario").value = valor_id_cancion_usuario;
+
+			//Parte de Titulo
+			var valortitulo = titulo;
+			document.getElementById("titulo").value = valortitulo;
+
+			//Parte de Artista
+			var valorartista = artista;
+			document.getElementById("artista").value = valorartista;
+
+			//Parte de Album
+			var valoralbum = album;
+			document.getElementById("album").value = valoralbum;
+
+			//Parte de Genero
+			var valorgenero = genero;
+			document.getElementById("genero").value = valorgenero;
+			
+			var valorIdCancion = id_cancion_usuario;
+			document.getElementById("id_cancion").value = valorIdCancion;
+
+			}
+			
+			function actualizarCancion()
+			{
+				var objAjax = new objetoAjax();
+				
+				var opc="actualizarcancion";
 				
 				//Parte de Titulo
-				var valortitulo = titulo;
-				document.getElementById("titulo").value = valortitulo;	
+				var id_cancion_usuario = document.getElementById("id_cancion").value;
+				var titulo = document.getElementById("titulo").value;
+				var artista = document.getElementById("artista").value;
+				var album = document.getElementById("album").value;
+				var genero = document.getElementById("genero").value;
 				
-				//Parte de Artista
-				var valorartista = artista;
-				document.getElementById("artista").value = valorartista;	
+				objAjax.open("POST", "../Controlador/MostrarCancionUsuarioControlador.php", true);
 				
-				//Parte de Album
-				var valoralbum = album;
-				document.getElementById("album").value = valoralbum;	
+				objAjax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 				
-				//Parte de Genero
-				var valorgenero = genero;
-				document.getElementById("genero").value = valorgenero;	
+				objAjax.send("opcion="+opc+"&id_cancion_usuario"+id_cancion_usuario+"&titulo="+titulo+"&artista="+artista+"&album="+album+"&genero="+genero);
+				
+				objAjax.onreadystatechange=function()
+				{
+					if (objAjax.readyState==4)
+					{
+						document.getElementById("mostrar").innerHTML = objAjax.responseText;
+					}
+				}
+				document.getElementById("id_cancion_usuario").value="";
+				document.getElementById("titulo").value="";
+				document.getElementById("artista").value="";
+				document.getElementById("album").value="";
+				document.getElementById("genero").value="";
 
 			}
 		</script>
@@ -76,9 +116,10 @@
 									<input type="text" name="album" id="album" />
 									<label>Genero:</label>
 									<input type="text" name="genero" id="genero" />
+									<input type="hidden" id="id_cancion" />
 									<br />
 									<br />
-									<button type="submit" class="btn btn-danger">Actualizar</button>
+									<button class="btn btn-success" onclick="actualizarCancion();return false;">Actualizar <i class="icon-ok icon-white"></i></button>
 									<button type="reset" class="btn">Limpiar</button>
 								</fieldset>
 								<iframe id="pagina_target" name="pagina_target" style="display:none"></iframe>

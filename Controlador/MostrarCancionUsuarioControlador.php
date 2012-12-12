@@ -3,8 +3,8 @@ session_start();
 include('../Config/conexion.php');
 include_once("../Modelo/CancionUsuarioModelo.php");
 $opc = $_POST["opcion"];
-$nick = $_SESSION['nick'];
-//$nick = "sergionick";
+//$nick = $_SESSION['nick'];
+$nick = "jreyse";
 $titulo="";
 $artista="";
 $album="";
@@ -232,6 +232,23 @@ $genero="";
 	
 	
 	echo $datosdiv;
+	
+	break;
+	
+//------------------------------------------------------------------------------------------	
+	
+	case "actualizarcancion":
+	$id_cancion_usuario = $_POST['id_cancion_usuario'];
+	$titulo = $_POST['titulo'];
+	$artista = $_POST['artista'];
+	$album = $_POST['album'];
+	$genero = $_POST['genero'];
+	
+	$modelo = new CancionUsuarioModelo();
+	
+	$querymostrar = $modelo->actualizarCancion($id_cancion_usuario,$titulo,$artista,$album,$genero);
+	
+	
 	
 	break;
 //--------------------------------------------------------------------------
